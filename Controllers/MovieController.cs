@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using MovieRentalApp.Models;
+using System.Data.Entity;
 
 
 namespace MovieRentalApp.Controllers
@@ -60,16 +61,22 @@ namespace MovieRentalApp.Controllers
         //{ 
         //    return Content(String.Format("Released Date : {0}/{1}", year, month));
         //}
+        private ApplicationDbContext _context;
 
+        public MovieController()
+        {
+            _context = new ApplicationDbContext();
+        }
         public ActionResult Movies()
         {
-            var movies = GetMovies();
+            //var movies = GetMovies();
+            var movies = _context.Movies.Include(m => m.Genres).ToList();
             return View(movies);
         }
 
         public ActionResult Details(int? id) 
         {
-            var movie = GetMovies().SingleOrDefault(m => m.Id == id);
+            var movie = _context.Movies.Include(m => m.Genres).SingleOrDefault(m => m.Id == id);
             if (movie == null)
             {
                 return HttpNotFound();
@@ -79,13 +86,13 @@ namespace MovieRentalApp.Controllers
             }
         }
 
-        private IEnumerable<Movies> GetMovies()
-        {
-            return new List<Movies>
-            {
-                new Movies { Id = 100, Title = "Dune 2"},
-                new Movies { Id = 101, Title = "Wicked"}
-            };
-        }
+        //private IEnumerable<Movies> GetMovies()
+        //{
+        //    return new List<Movies>
+        //    {
+        //        new Movies { Id = 100, Title = "Dune 2"},
+        //        new Movies { Id = 101, Title = "Wicked"}
+        //    };
+        //}
     }
 }

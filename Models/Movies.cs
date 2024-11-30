@@ -9,5 +9,11 @@ namespace MovieRentalApp.Models
     {
         public int Id { get; set; }
         public string Title { get; set; }
+        public DateTime ReleasedDate { get; set; }
+        public DateTime? LastUpdatedDate { get; set; }
+        public int NoOfItems { get; set; }
+        public Genres Genres { get; set; }
+
+
     }
 }

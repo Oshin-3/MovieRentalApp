@@ -5,4 +5,10 @@
 }
 
 <h2>@Model.Title</h2>
+<ul>
+    <li>Genre: @Model.Genres.Name</li>
+    <li>Release Date: @Model.ReleasedDate.ToLongDateString()</li>
+    <li>Added Date: @Model.LastUpdatedDate.Value.ToLongDateString()</li>
+    <li>No. of Stocks: @Model.NoOfItems</li>
+</ul>
 
